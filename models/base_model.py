@@ -1,15 +1,15 @@
 #!/usr/bin/python3
 """BaseModel"""
 import uuid
-import datetime
+from datetime import datetime
 
 
 class BaseModel:
 
     def __init__(self):
         self.id = str(uuid.uuid4())
-        self.created_at = datetime.datetime.now()
-        self.update_at = datetime.datetime.now()
+        self.created_at = datetime.now()
+        self.update_at = datetime.now()
 
     def __str__(self):
         """str"""
@@ -18,7 +18,7 @@ class BaseModel:
 
     def save(self):
         """save"""
-        self.update_at = datetime.datetime.now()
+        self.update_at = datetime.now()
 
     def to_dict(self):
         """to_dict"""

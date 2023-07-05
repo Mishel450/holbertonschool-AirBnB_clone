@@ -8,6 +8,8 @@ class BaseModel:
     """BaseModel"""
 
     def __init__(self):
+        """init"""
+
         self.id = str(uuid.uuid4())
         self.created_at = datetime.now()
         self.update_at = datetime.now()

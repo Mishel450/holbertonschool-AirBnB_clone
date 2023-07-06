@@ -2,7 +2,6 @@
 """serializes instances to a JSON file and deserializes JSON file"""
 from models.base_model import BaseModel
 import json
-import os
 
 
 class FileStorage:
@@ -16,16 +15,26 @@ class FileStorage:
     
     def new(self, obj):
         """store an object in the dictionary"""
-        key = f"{obj.__class__.__name__}.{obj.id}"
-        FileStorage.__objects[key] = obj
+        if obj is not None:
+            key = '{}.{}'.format(obj.__class__.__name__, obj.id)
+            self.__objects[key] = obj
 
     def save(self):
         """Serializes __objects to the JSON file (path: __file_path)"""
+        serialized_data = {}
+        for key, value in self.__objects.items():
+            serialized_data[key] = value.to_dict()
         with open(self.__file_path, "w", encoding="utf-8") as file:
-            json.dump(self.__objects, file)
+            json.dump(serialized_data, file)
 
     def reload(self):
         """Deserializes the JSON file to __objects"""
-        if os.path.isfile(self.__file_path):
-            with open(self.__file_path, "r", encoding="utf-8") as file:
-                self.__objects = json.load(file)
+        
+        try:
+            with open(self.__file_path, 'r') as file:
+                for key, value in json.load(file).items():
+                    value = BaseModel(**value)
+                    self.__objects[key] = value
+
+        except FileNotFoundError:
+            pass

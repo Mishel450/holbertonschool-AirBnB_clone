@@ -2,7 +2,7 @@
 """BaseModel-task and class BaseModel"""
 import uuid
 from datetime import datetime
-from models.engine.file_storage import FileStorage
+import models
 
 
 class BaseModel:
@@ -36,8 +36,8 @@ class BaseModel:
         """it creates a copy of the self.__dict__ and creates a [class] key
         and updates the [update_at] and the [created_at]"""
 
-        td = self.__dict__.copy()
-        td["__class__"] = str(type(self).__name__)
-        td["updated_at"] = self.updated_at.isoformat()
-        td["created_at"] = self.created_at.isoformat()
-        return (td)
+        new_dict = self.__dict__.copy()
+        new_dict["__class__"] = str(type(self).__name__)
+        new_dict["updated_at"] = self.updated_at.isoformat()
+        new_dict["created_at"] = self.created_at.isoformat()
+        return new_dict

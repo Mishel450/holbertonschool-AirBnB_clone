@@ -26,14 +26,11 @@ class HBNBCommand(cmd.Cmd):
         if not args:
             print("** class name missing **")
             return
-
         name = args
         clase = ["BaseModel"]
-
         if name not in clase:
             print("** class doesn't exist **")
             return
-
         if name == "BaseModel":
             new_instance = BaseModel()
             new_instance.save()

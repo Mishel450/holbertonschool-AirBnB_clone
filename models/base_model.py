@@ -21,6 +21,7 @@ class BaseModel:
             self.id = str(uuid.uuid4())
             self.created_at = datetime.now()
             self.updated_at = datetime.now()
+            models.storage.new(self)
 
     def __str__(self):
         """is the str of the self"""
@@ -32,6 +33,7 @@ class BaseModel:
         """this saves the time in the update_at"""
 
         self.updated_at = datetime.now()
+        models.storage.save()
 
     def to_dict(self):
         """it creates a copy of the self.__dict__ and creates a [class] key

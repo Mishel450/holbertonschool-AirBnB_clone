@@ -1,14 +1,14 @@
 #!/usr/bin/python3
-"""BaseModel"""
+"""BaseModel-task and class BaseModel"""
 import uuid
 from datetime import datetime
 
 
 class BaseModel:
-    """BaseModel"""
+    """the class BaseModel"""
 
     def __init__(self, *args, **kwargs):
-        """init"""
+        """init the self"""
 
         dformat = "%Y-%m-%dT%H:%M:%S.%f"
         if (kwargs):
@@ -21,18 +21,19 @@ class BaseModel:
             self.updated_at = datetime.now()
 
     def __str__(self):
-        """str"""
+        """is the str of the self"""
 
         return ("[{}] ({}) {}".format(self.__class__.__name__,
                                       self.id, self.__dict__))
 
     def save(self):
-        """save"""
+        """this saves the time in the update_at"""
 
         self.updated_at = datetime.now()
 
     def to_dict(self):
-        """to_dict"""
+        """it creates a copy of the self.__dict__ and creates a [class] key
+        and updates the [update_at] and the [created_at]"""
 
         td = self.__dict__.copy()
         td["__class__"] = str(type(self).__name__)

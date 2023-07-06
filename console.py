@@ -2,6 +2,8 @@
 """console"""
 import cmd
 from models.base_model import BaseModel
+from models.engine.file_storage import FileStorage
+from models import storage
 
 
 class HBNBCommand(cmd.Cmd):
@@ -38,9 +40,23 @@ class HBNBCommand(cmd.Cmd):
             new_instance.save()
             print(new_instance.id)
 
-    def show(self, args):
+    def do_show(self, args):
         """Prints the string of an instance based on the class name"""
-        pass
+        arg = args.split()
+        if len(arg) == 0:
+            print("** class name missing **")
+        elif arg[0] != "BaseModel":
+            print("** class doesn't exist **")
+        elif len(arg) == 1:
+            print("** instance id missing **")
+        else:
+            key = arg[0] + '.' + arg[1]
+            objects = storage.all()
+            if key in objects:
+                print(objects[key])
+            else:
+                print("** no instance found **")
+        
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()

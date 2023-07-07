@@ -6,8 +6,6 @@ from models.base_model import BaseModel
 from models import storage
 from models.user import User
 
-_dict = {BaseModel, User}
-
 
 class HBNBCommand(cmd.Cmd):
     """command interpreter"""

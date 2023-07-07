@@ -2,6 +2,7 @@
 """serializes instances to a JSON file and deserializes JSON file"""
 from models.base_model import BaseModel
 import json
+from models.user import User
 
 
 class FileStorage:
@@ -12,7 +13,7 @@ class FileStorage:
     def all(self):
         """return the dictionary __objects"""
         return self.__objects
-    
+
     def new(self, obj):
         """store an object in the dictionary"""
         if obj is not None:
@@ -29,12 +30,15 @@ class FileStorage:
 
     def reload(self):
         """Deserializes the JSON file to __objects"""
-        
+        _dict = {"BaseModel": BaseModel,
+                 "User": User}
         try:
             with open(self.__file_path, 'r') as file:
                 for key, value in json.load(file).items():
-                    value = BaseModel(**value)
-                    self.__objects[key] = value
+                    cls = value["__class__"]
+                    clas = _dict[cls]
+                    obj = clas(**value)
+                    self.__objects[key] = obj
 
         except FileNotFoundError:
             pass

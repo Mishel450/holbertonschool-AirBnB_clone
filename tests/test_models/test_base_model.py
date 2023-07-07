@@ -29,3 +29,11 @@ class TestBaseModel(unittest.TestCase):
         bm.save()
         new_hs = bm.updated_at
         self.assertNotEqual(hs, new_hs)
+
+    def test_to_dict(self):
+        bm = BaseModel()
+        dict_result = bm.to_dict()
+        self.assertIsInstance(dict_result, dict)
+        self.assertIn("__class__", dict_result)
+        self.assertEqual(dict_result["__class__"], "BaseModel")
+        self.assertIn("updated_at", dict_result)

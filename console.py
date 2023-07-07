@@ -5,6 +5,8 @@ from models.user import User
 from models.base_model import BaseModel
 from models import storage
 
+_dict = {BaseModel, User}
+
 
 class HBNBCommand(cmd.Cmd):
     """command interpreter"""
@@ -32,9 +34,9 @@ class HBNBCommand(cmd.Cmd):
         if name not in clase:
             print("** class doesn't exist **")
             return
-        if name == clase:
-            if name == "BaseModel":
-                new_instance = BaseModel()
+        if name in clase:
+            if name in _dict:
+                new_instance = _dict(args)
                 new_instance.save()
                 print(new_instance.id)
 

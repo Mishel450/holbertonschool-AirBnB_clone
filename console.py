@@ -1,7 +1,8 @@
 #!/usr/bin/python3
-"""console"""
+"""the best console"""
 import cmd
 from models.base_model import BaseModel
+from models import storage
 
 
 class HBNBCommand(cmd.Cmd):
@@ -25,22 +26,87 @@ class HBNBCommand(cmd.Cmd):
         if not args:
             print("** class name missing **")
             return
-
         name = args
         clase = ["BaseModel"]
-
         if name not in clase:
             print("** class doesn't exist **")
             return
-
         if name == "BaseModel":
             new_instance = BaseModel()
             new_instance.save()
             print(new_instance.id)
 
-    def show(self, args):
+    def do_show(self, args):
         """Prints the string of an instance based on the class name"""
-        pass
+
+        arg = args.split()
+        if len(arg) == 0:
+            print("** class name missing **")
+        elif arg[0] != "BaseModel":
+            print("** class doesn't exist **")
+        elif len(arg) == 1:
+            print("** instance id missing **")
+        else:
+            key = arg[0] + '.' + arg[1]
+            objects = storage.all()
+            if key in objects:
+                print(objects[key])
+            else:
+                print("** no instance found **")
+
+    def do_destroy(self, args):
+        """Deletes an instance based on the class name and id"""
+
+        arg = args.split()
+        if len(arg) == 0:
+            print("** class name missing **")
+        elif arg[0] != "BaseModel":
+            print("** class doesn't exist **")
+        elif len(arg) == 1:
+            print("** instance id missing **")
+        else:
+            key = arg[0] + '.' + arg[1]
+            objects = storage.all()
+            if key in objects:
+                del objects[key]
+            else:
+                print("** no instance found **")
+
+    def do_all(self, args):
+        """Prints all string representation of all instances based
+        or not on the class name."""
+
+        arg = args.split()
+        if len(arg) > 0 and arg[0] != "BaseModel":
+            print("** class doesn't exist **")
+        else:
+            objects = storage.all()
+            print(objects)
+
+    def do_update(self, args):
+        """Updates an instance based on the class name and
+        id by adding or updating attribute"""
+
+        arg = args.split()
+        if len(arg) == 0:
+            print("** class name missing **")
+        elif arg[0] != "BaseModel":
+            print("** class doesn't exist **")
+        elif len(arg) == 1:
+            print("** instance id missing **")
+        elif len(arg) >= 2:
+            key = arg[0] + '.' + arg[1]
+            objects = storage.all()
+            if key not in objects:
+                print("** no instance found **")
+            elif len(arg) == 2:
+                print("** attribute name missing **")
+            elif len(arg) == 3:
+                print("** value missing **")
+            else:
+                if key in objects:
+                    setattr(objects[key], str(arg[2]), str(arg[3]))
+
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()

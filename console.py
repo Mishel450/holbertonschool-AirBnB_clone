@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """the best console"""
 import cmd
+from models.user import User
 from models.base_model import BaseModel
 from models import storage
 
@@ -27,21 +28,22 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
             return
         name = args
-        clase = ["BaseModel"]
+        clase = ["BaseModel", "User"]
         if name not in clase:
             print("** class doesn't exist **")
             return
-        if name == "BaseModel":
-            new_instance = BaseModel()
-            new_instance.save()
-            print(new_instance.id)
+        if name == clase:
+            if name == "BaseModel":
+                new_instance = BaseModel()
+                new_instance.save()
+                print(new_instance.id)
 
     def do_show(self, args):
         """Prints the string of an instance based on the class name"""
 
         arg = args.split()
         if len(arg) == 0:
-            print("** class name missing **")
+            print("* class name missing **")
         elif arg[0] != "BaseModel":
             print("** class doesn't exist **")
         elif len(arg) == 1:

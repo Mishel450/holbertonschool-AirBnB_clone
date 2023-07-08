@@ -38,7 +38,7 @@ class FileStorageTest(unittest.TestCase):
     def test_reload(self):
         bm = BaseModel()
         self.fs.new(bm)
-        key = 'BaseModel' + '.' + bm.id
+        key = 'BaseModel.' + bm.id
         self.fs.save()
         self.fs.reload()
         self.assertEqual(bm.to_dict(), self.fs.all()[key].to_dict())

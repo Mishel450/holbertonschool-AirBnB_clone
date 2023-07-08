@@ -3,6 +3,7 @@ import unittest
 from models.engine.file_storage import FileStorage
 from models.base_model import BaseModel
 import os
+import json
 
 class FileStorageTest(unittest.TestCase):
     def setUp(self):
@@ -12,8 +13,19 @@ class FileStorageTest(unittest.TestCase):
         if os.path.exists(FileStorage._FileStorage__file_path):
             os.remove(FileStorage._FileStorage__file_path)
 
+    def test_file_path(self):
+        expected_path = "file.json"
+        self.assertEqual(self.fs._FileStorage__file_path, expected_path)
+
     def test_all(self):
         self.assertIsInstance(self.fs.all(), dict)
+
+    def test_all_2(self):
+        fs = FileStorage()
+        obj = fs.all()
+        self.assertIsNotNone(obj)
+        self.assertEqual(type(obj), dict)
+        self.assertIs(obj, fs._FileStorage__objects)
 
     def test_all_object(self):
         fs = FileStorage()

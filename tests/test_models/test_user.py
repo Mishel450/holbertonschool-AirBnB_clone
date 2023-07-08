@@ -23,6 +23,21 @@ class Test_User(unittest.TestCase):
         Us = User()
         self.assertIsInstance(Us.updated_at, datetime)
 
+    def test_save(self):
+        Us = User()
+        hs = Us.updated_at
+        Us.save()
+        new_hs = Us.updated_at
+        self.assertNotEqual(hs, new_hs)  # verifica si el hs no es iguales a new_hs
+
+    def test_to_dict(self):
+        Us = User()
+        dict_result = Us.to_dict()
+        self.assertIsInstance(dict_result, dict)
+        self.assertIn("__class__", dict_result)
+        self.assertEqual(dict_result["__class__"], "User")
+        self.assertIn("updated_at", dict_result)
+
     def Test_check_email(self):
         Us = User()
         Us.email = "airBnB@gmail.com"

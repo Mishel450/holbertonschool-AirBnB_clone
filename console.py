@@ -90,10 +90,12 @@ class HBNBCommand(cmd.Cmd):
                     key_split = key.split(".")
                     if key_split[0] == arg[0]:
                         file_list.append(str(objects[key]))
+                file_list = [item.replace('"', '') for item in file_list]
                 print(file_list)
             else:
                 for key in objects:
                     file_list.append(str(objects[key]))
+                file_list = [item.replace('"', '') for item in file_list]
                 print(file_list)
 
     def do_update(self, args):

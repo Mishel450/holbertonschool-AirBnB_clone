@@ -120,7 +120,10 @@ class HBNBCommand(cmd.Cmd):
                 print("** value missing **")
             else:
                 if key in objects:
-                    setattr(objects[key], str(arg[2]), str(arg[3]))
+                    value = arg[3]
+                    if value.startswith('"') and value.endswith('"'):
+                        value = value[1:-1]
+                    setattr(objects[key], str(arg[2]), value)
 
 
 if __name__ == "__main__":

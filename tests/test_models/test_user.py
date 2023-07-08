@@ -7,19 +7,19 @@ from datetime import datetime
 class Test_User(unittest.TestCase):
     """"""
 
-    def Test_Create_Object(self):
+    def test_create_cbject(self):
         Us = User()
         self.assertIsInstance(Us, User)
 
-    def Test_check_id(self):
+    def test_check_id(self):
         Us = User()
         self.assertIsInstance(Us.id, str)
 
-    def Test_check_created_at(self):
+    def test_check_created_at(self):
         Us = User()
         self.assertIsInstance(Us.created_at, datetime)
 
-    def Test_check_updated_at(self):
+    def test_check_updated_at(self):
         Us = User()
         self.assertIsInstance(Us.updated_at, datetime)
 
@@ -38,25 +38,25 @@ class Test_User(unittest.TestCase):
         self.assertEqual(dict_result["__class__"], "User")
         self.assertIn("updated_at", dict_result)
 
-    def Test_check_email(self):
+    def test_check_email(self):
         Us = User()
         Us.email = "airBnB@gmail.com"
         self.assertAlmostEqual(Us.email, "airBnB@gmail.com")
         self.assertIsInstance(Us.email, str)
 
-    def Test_check_password(self):
+    def test_check_password(self):
         Us = User()
         Us.password = "Gertrudis15"
         self.assertAlmostEqual(Us.password, "Gertrudis15")
         self.assertIsInstance(Us.password, str)
 
-    def Test_check_first_name(self):
+    def test_check_first_name(self):
         Us = User()
         Us.first_name = "Gertrudis"
         self.assertAlmostEqual(Us.first_name, "Gertrudis")
         self.assertIsInstance(Us.first_name, str)
 
-    def Test_check_last_name(self):
+    def test_check_last_name(self):
         Us = User()
         Us.last_name = "Gomez"
         self.assertAlmostEqual(Us.last_name, "Gomez")

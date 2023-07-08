@@ -3,6 +3,11 @@
 from models.base_model import BaseModel
 import json
 from models.user import User
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.place import Place
+from models.review import Review
 
 
 class FileStorage:
@@ -32,7 +37,12 @@ class FileStorage:
         """Deserializes the JSON file to __objects"""
 
         _dict = {"BaseModel": BaseModel,
-                 "User": User}
+                 "User": User,
+                 "State": State,
+                 "City": City,
+                 "Amenity": Amenity,
+                 "Place": Place,
+                 "Review": Review}
         try:
             with open(self.__file_path, 'r') as file:
                 for key, value in json.load(file).items():

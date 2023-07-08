@@ -13,6 +13,9 @@ class FileStorageTest(unittest.TestCase):
             os.remove(FileStorage._FileStorage__file_path)
 
     def test_all(self):
+        self.assertIsInstance(self.fs.all(), dict)
+
+    def test_all_object(self):
         fs = FileStorage()
         object = fs.all()
         self.assertEqual(fs.all(), object)

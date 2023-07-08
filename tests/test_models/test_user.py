@@ -1,11 +1,12 @@
 #!/usr/bin/python3
-""""""
+"""User"""
 import unittest
 from models.user import User
 from datetime import datetime
 
 class Test_User(unittest.TestCase):
-    """"""
+    """This class contains test methods to test the
+    behavior of the User class."""
 
     def test_create_cbject(self):
         Us = User()

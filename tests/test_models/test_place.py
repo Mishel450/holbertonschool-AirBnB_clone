@@ -1,11 +1,12 @@
 #!/usr/bin/python3
-""""""
+"""place"""
 import unittest
 from models.place import Place
 
 
 class Testplace(unittest.TestCase):
-    """"""
+    """This class contains test methods to test the
+    behavior of the Place class."""
 
     def test_check_city_id(self):
         Pl = Place()

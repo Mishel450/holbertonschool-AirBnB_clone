@@ -1,11 +1,13 @@
 #!/usr/bin/python3
-""""""
+"""BaseModel"""
 import unittest
 from models.base_model import BaseModel
 from datetime import datetime
 
 
 class TestBaseModel(unittest.TestCase):
+    """This class contains test methods to test the
+    behavior of the BaseModel class."""
 
     def test_create_object(self):
         bm = BaseModel()

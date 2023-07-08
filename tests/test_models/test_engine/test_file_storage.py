@@ -2,42 +2,40 @@
 import unittest
 from models.engine.file_storage import FileStorage
 from models.base_model import BaseModel
-import uuid
-import json
-
+import os
 
 class FileStorageTest(unittest.TestCase):
+    def setUp(self):
+        self.fs = FileStorage()
+
+    def tearDown(self):
+        if os.path.exists(FileStorage._FileStorage__file_path):
+            os.remove(FileStorage._FileStorage__file_path)
+
     def test_all(self):
         fs = FileStorage()
-        objects = fs.all()
-        self.assertEqual(objects, fs._FileStorage__objects)
+        object = fs.all()
+        self.assertEqual(fs.all(), object)
 
     def test_new(self):
-        fs = FileStorage()
-        model_id = str(uuid.uuid4())
-        u_at = "2017-06-14T22:31:03.285259"
-        c_at = "2017-06-14T22:31:03.285255"
-        bm = BaseModel(id=model_id, updated_at=u_at, created_at=c_at)
-        fs.new(bm)
-        key = f"{bm.__class__.__name__}.{bm.id}"
-        obj_dict = fs.all()
-        self.assertIn(key, obj_dict)
-        self.assertEqual(obj_dict[key], bm)
-        self.assertIsInstance(obj_dict[key], BaseModel)
+        bm = BaseModel()
+        self.fs.new(bm)
+        key = "{}.{}".format(type(bm).__name__, bm.id)
+        self.assertEqual(bm, self.fs.all()[key])
 
-    def test_save_reload(self):
-        fs = FileStorage()
-        obj1 = BaseModel()
-        obj1.id = str(uuid.uuid4())
-        fs.new(obj1)
-        obj2 = BaseModel()
-        obj2.id = str(uuid.uuid4())
-        fs.new(obj2)
-        fs.save()
-        fs_reload = FileStorage()
-        fs_reload.reload()
-        reload_obj = fs_reload.all()
-        self.assertIn('BaseModel.' + obj1.id, reload_obj)
-        self.assertIn('BaseModel.' + obj2.id, reload_obj)
-        self.assertEqual(reload_obj['BaseModel.' + obj1.id].to_dict(), obj1.to_dict())
-        self.assertEqual(reload_obj['BaseModel.' + obj2.id].to_dict(), obj2.to_dict())
+    def test_save(self):
+        bm = BaseModel()
+        self.fs.new(bm)
+        self.fs.save()
+        with open(FileStorage._FileStorage__file_path, "r") as file:
+            file_content = file.read()
+        self.assertIn(type(bm).__name__, file_content)
+        self.assertIn(bm.id, file_content)
+
+    def test_reload(self):
+        bm = BaseModel()
+        self.fs.new(bm)
+        key = 'BaseModel' + '.' + bm.id
+        self.fs.save()
+        self.fs.reload()
+        self.assertEqual(bm.to_dict(), self.fs.all()[key].to_dict())

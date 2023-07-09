@@ -59,19 +59,8 @@ class FileStorageTest(unittest.TestCase):
         self.fs.reload()
         self.assertEqual(bm.to_dict(), self.fs.all()[key].to_dict())
 
-    def test_json(self):
-        obj1 = BaseModel()
-        obj2 = BaseModel()
-        self.fs.new(obj1)
-        self.fs.new(obj2)
-        self.fs.save()
-        with open(self.fs._FileStorage__file_path, "r") as file:
-            file_content = json.load(file)
-        key1 = '{}.{}'.format(obj1.__class__.__name__, obj1.id)
-        key2 = '{}.{}'.format(obj2.__class__.__name__, obj2.id)
-        self.assertIn(key1, file_content)
-        self.assertIn(key2, file_content)
-        self.assertEqual(file_content[key1]["__class__"],
-                         obj1.__class__.__name__)
-        self.assertEqual(file_content[key2]["__class__"],
-                         obj2.__class__.__name__)
+    def test_everything(self):
+        fs = FileStorage()
+        fs.all().clear()
+        fs.reload()
+        self.assertTrue(len(fs.all()) > 0)

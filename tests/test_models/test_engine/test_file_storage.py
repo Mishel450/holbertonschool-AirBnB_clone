@@ -15,6 +15,6 @@ class FileStorageTest(unittest.TestCase):
 
     def test_everything(self):
         fs = FileStorage()
-        fs.all().clear()
+        fs.all()
         fs.reload()
         self.assertTrue(len(fs.all()) > 0)

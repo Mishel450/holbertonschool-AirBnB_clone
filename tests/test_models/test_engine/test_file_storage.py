@@ -18,8 +18,9 @@ class FileStorageTest(unittest.TestCase):
             os.remove(FileStorage._FileStorage__file_path)
 
     def test_file_path(self):
-        expected_path = "file.json"
-        self.assertEqual(self.fs._FileStorage__file_path, expected_path)
+        f = FileStorage()
+        a = f._FileStorage__file_path
+        self.assertEqual(a, "file.json")
 
     def test_all(self):
         self.assertIsInstance(self.fs.all(), dict)

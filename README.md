@@ -50,11 +50,11 @@
         <td><li>name</li></td>
     </tr>
     <tr>
-        <td>state</td>
+        <td>State</td>
         <td><li>name</li></td>
     </tr>
     <tr>
-        <td>place</td>
+        <td>Place</td>
         <td><li>city_id</li>
             <li>user_id</li>
             <li>name</li>
@@ -69,7 +69,7 @@
             <li>Amenity.if</li></td>
     </tr>
     <tr>
-        <td>review</td>
+        <td>Review</td>
         <td><li>place_id</li>
             <li>user_id</li>
             <li>text</li></td>

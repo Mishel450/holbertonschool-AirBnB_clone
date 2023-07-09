@@ -4,6 +4,7 @@ import unittest
 from models.user import User
 from datetime import datetime
 
+
 class Test_User(unittest.TestCase):
     """This class contains test methods to test the
     behavior of the User class."""
@@ -29,7 +30,8 @@ class Test_User(unittest.TestCase):
         hs = Us.updated_at
         Us.save()
         new_hs = Us.updated_at
-        self.assertNotEqual(hs, new_hs)  # verifica si el hs no es iguales a new_hs
+        self.assertNotEqual(hs, new_hs)
+        # verifica si el hs no es iguales a new_hs
 
     def test_to_dict(self):
         Us = User()

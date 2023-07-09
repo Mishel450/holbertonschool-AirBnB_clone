@@ -5,6 +5,7 @@ from models.base_model import BaseModel
 import os
 import json
 
+
 class FileStorageTest(unittest.TestCase):
     def setUp(self):
         self.fs = FileStorage()
@@ -67,5 +68,7 @@ class FileStorageTest(unittest.TestCase):
         key2 = '{}.{}'.format(obj2.__class__.__name__, obj2.id)
         self.assertIn(key1, file_content)
         self.assertIn(key2, file_content)
-        self.assertEqual(file_content[key1]["__class__"], obj1.__class__.__name__)
-        self.assertEqual(file_content[key2]["__class__"], obj2.__class__.__name__)
+        self.assertEqual(file_content[key1]["__class__"],
+                         obj1.__class__.__name__)
+        self.assertEqual(file_content[key2]["__class__"],
+                         obj2.__class__.__name__)

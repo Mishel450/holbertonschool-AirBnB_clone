@@ -1,6 +1,9 @@
-<h1>Project: AirBnB clone</h1>
+<h1 align = "center">Project: AirBnB clone</h1>
+<img src="https://github.com/Mishel450/holbertonschool-AirBnB_clone/assets/124268926/826d025a-9b16-4a60-b75d-f7dd08f183a2">
 
-<p>The HBHN project is part of the second quarter of the Software program at Holberton School. Its main goal is to develop a complete clone of the well-known web application AirBnB, covering all technological layers (front-end and back-end).</p>
+<p>The HBHN project is part of the second quarter of the Software program at Holberton School. Its main goal is to develop a complete clone of the well-known web application AirBnB, covering all technological layers (back-end).</p>
+
+<img src="https://github.com/Mishel450/holbertonschool-AirBnB_clone/assets/124268926/5942cb22-f6e2-4785-a58a-be8fd501e8a8">
 
 <h2>Requirements</h2>
 
@@ -11,12 +14,18 @@
 
 <h2>Console archive files</h2>
 
-<li>BaseModel</li>
-
+ <h3><a href="https://github.com/Mishel450/holbertonschool-AirBnB_clone/blob/master/models/base_model.py">BaseModel</a></h3>
+<p>
+    Defines all common attributes/methods that will be inherited by other future classes. 
+    <li><b>def __init__(self, *args, **kwargs):</b> Initialize an instance of the class when a new object is created.</li>
+    <li><b>def __str__(self):</b>String representation of the BaseModel class</li>
+    <li><b>def save(self):</b>Updates the public instance attribute updated_at with the current datetime</li>
+    <li><b>def to_dict(self):</b>Returns a dictionary containing all keys/values of __dict__ of the instance</li>
+</p>
 <table>
     <tr>
-        <td>Name of class</td>
-        <td>Attributes</td>
+        <td><b>Name of class</b></td>
+        <td><b>Attributes</b></td>
     </tr>
     <tr>
         <td>BaseModel</td>
@@ -41,11 +50,11 @@
         <td><li>name</li></td>
     </tr>
     <tr>
-        <td>state</td>
+        <td>State</td>
         <td><li>name</li></td>
     </tr>
     <tr>
-        <td>place</td>
+        <td>Place</td>
         <td><li>city_id</li>
             <li>user_id</li>
             <li>name</li>
@@ -60,20 +69,22 @@
             <li>Amenity.if</li></td>
     </tr>
     <tr>
-        <td>review</td>
+        <td>Review</td>
         <td><li>place_id</li>
             <li>user_id</li>
             <li>text</li></td>
     </tr>
 </table>
 
-<li>consolt.py</li>
-
+ <h3><a href="https://github.com/Mishel450/holbertonschool-AirBnB_clone/blob/master/console.py">Console</a></h3>
+<p>
+    Contains the entry point of the command interpreter
+</p>
 <table>
     <tr>
-        <td>Function</td>
-        <td>Description</td>
-        <td>Example</td>
+        <td><b>Function</b></td>
+        <td><b>Description</b></td>
+        <td><b>Example</b></td>
     </tr>
     <tr>
         <td>do_quit</td>
@@ -117,12 +128,15 @@
     </tr>
 </table>
 
-<li>file_storage.py</li>
 
+ <h3><a href="https://github.com/Mishel450/holbertonschool-AirBnB_clone/blob/master/models/engine/file_storage.py">File_storage</a></h3>
+<p>
+    Serializes instances to a JSON file and deserializes JSON file to instances
+</p>
 <table>
     <tr>
-        <td>Function</td>
-        <td>Description</td>
+        <td><b>Function</b></td>
+        <td><b>Description</b></td>
     </tr>
     <tr>
         <td>all</td>
@@ -140,4 +154,11 @@
         <td>reload</td>
         <td>deserializes a JSON file and recreates the corresponding objects</td>
     </tr>
-        
+</table>
+<details>
+ <summary><h3>Authors</h3></summary>
+    
+<h5><a href="https://github.com/Mishel450">Mishel Tomas</a></h5>
+<h5><a href="https://github.com/DarianGrabino">Darian Grabino</a></h5>
+<h5><a href="https://github.com/20Emi">Emily Sánchez</a></h5>
+</derails>

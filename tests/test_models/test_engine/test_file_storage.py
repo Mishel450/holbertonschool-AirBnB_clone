@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+"""test of file_storage"""
 import unittest
 from models.engine.file_storage import FileStorage
 from models.base_model import BaseModel
@@ -7,6 +8,8 @@ import json
 
 
 class FileStorageTest(unittest.TestCase):
+    """test"""
+
     def setUp(self):
         self.fs = FileStorage()
 

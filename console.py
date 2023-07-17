@@ -1,13 +1,26 @@
 #!/usr/bin/python3
 """the best console"""
 import cmd
+from models.user import User
 from models.base_model import BaseModel
 from models import storage
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.place import Place
+from models.review import Review
 
 
 class HBNBCommand(cmd.Cmd):
     """command interpreter"""
     prompt = "(hbnb) "
+    _dict = {"User": User,
+             "BaseModel": BaseModel,
+             "State": State,
+             "City": City,
+             "Amenity": Amenity,
+             "Place": Place,
+             "Review": Review}
 
     def do_quit(self, args):
         """Exit the program"""
@@ -23,17 +36,16 @@ class HBNBCommand(cmd.Cmd):
 
     def do_create(self, args):
         """Creates a new instance of BaseModel"""
+
         if not args:
             print("** class name missing **")
             return
-        name = args
-        clase = ["BaseModel"]
-        if name not in clase:
+        if args not in HBNBCommand._dict:
             print("** class doesn't exist **")
             return
-        if name == "BaseModel":
-            new_instance = BaseModel()
-            new_instance.save()
+        if args in HBNBCommand._dict:
+            new_instance = HBNBCommand._dict[args]()
+            storage.save()
             print(new_instance.id)
 
     def do_show(self, args):
@@ -42,7 +54,7 @@ class HBNBCommand(cmd.Cmd):
         arg = args.split()
         if len(arg) == 0:
             print("** class name missing **")
-        elif arg[0] != "BaseModel":
+        elif arg[0] not in HBNBCommand._dict:
             print("** class doesn't exist **")
         elif len(arg) == 1:
             print("** instance id missing **")
@@ -60,7 +72,7 @@ class HBNBCommand(cmd.Cmd):
         arg = args.split()
         if len(arg) == 0:
             print("** class name missing **")
-        elif arg[0] != "BaseModel":
+        elif arg[0] not in HBNBCommand._dict:
             print("** class doesn't exist **")
         elif len(arg) == 1:
             print("** instance id missing **")
@@ -69,6 +81,7 @@ class HBNBCommand(cmd.Cmd):
             objects = storage.all()
             if key in objects:
                 del objects[key]
+                objects = storage.save()
             else:
                 print("** no instance found **")
 
@@ -76,12 +89,22 @@ class HBNBCommand(cmd.Cmd):
         """Prints all string representation of all instances based
         or not on the class name."""
 
+        objects = storage.all()
+        file_list = []
         arg = args.split()
-        if len(arg) > 0 and arg[0] != "BaseModel":
+        if len(arg) > 0 and arg[0] not in HBNBCommand._dict:
             print("** class doesn't exist **")
         else:
-            objects = storage.all()
-            print(objects)
+            if args:
+                for key in objects:
+                    key_split = key.split(".")
+                    if key_split[0] == arg[0]:
+                        file_list.append(str(objects[key]))
+                print(file_list)
+            else:
+                for key in objects:
+                    file_list.append(str(objects[key]))
+                print(file_list)
 
     def do_update(self, args):
         """Updates an instance based on the class name and
@@ -90,7 +113,7 @@ class HBNBCommand(cmd.Cmd):
         arg = args.split()
         if len(arg) == 0:
             print("** class name missing **")
-        elif arg[0] != "BaseModel":
+        elif arg[0] not in HBNBCommand._dict:
             print("** class doesn't exist **")
         elif len(arg) == 1:
             print("** instance id missing **")
@@ -105,7 +128,10 @@ class HBNBCommand(cmd.Cmd):
                 print("** value missing **")
             else:
                 if key in objects:
-                    setattr(objects[key], str(arg[2]), str(arg[3]))
+                    value = arg[3]
+                    if value.startswith('"') and value.endswith('"'):
+                        value = value[1:-1]
+                    setattr(objects[key], str(arg[2]), value)
 
 
 if __name__ == "__main__":

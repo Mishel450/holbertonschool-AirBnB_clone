@@ -10,4 +10,5 @@ header div {
   background-repeat: no-repeat;
   height: 100%;
   margin-left: 20px;
+  background-size: contain;
 }
